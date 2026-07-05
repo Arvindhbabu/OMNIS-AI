@@ -9,6 +9,7 @@ dependencies = [
     "fastapi>=0.139.0",
     "httpx>=0.28.1",
     "pydantic>=2.13.4",
+    "pydantic-settings>=2.14.2",
     "python-dotenv>=1.2.2",
     "rich>=15.0.0",
     "sqlalchemy>=2.0.51",
@@ -36,8 +37,13 @@ warn_unused_configs = true
 disallow_untyped_defs = true
 no_implicit_optional = true
 
+plugins = ["pydantic.mypy"]
+
 [tool.pytest.ini_options]
-testpaths = ["tests"]
+testpaths = [
+    "tests",
+    "apps/api/tests",
+]
 
 [tool.coverage.run]
 source = ["apps"]
@@ -51,3 +57,6 @@ dev = [
     "pytest-cov>=7.1.0",
     "ruff>=0.15.20",
 ]
+
+[tool.pyright]
+extraPaths = ["apps/api/src"]
