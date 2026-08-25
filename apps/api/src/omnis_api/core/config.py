@@ -12,6 +12,13 @@ class Settings(BaseSettings):
     debug: bool = False
     environment: str = "development"
 
+    # Database
+    database_url: str = "postgresql+asyncpg://omnis:omnis@postgres:5432/omnis"
+    database_echo: bool = False
+
+    # Redis
+    redis_url: str = "redis://redis:6379/0"
+
     model_config = SettingsConfigDict(
         env_file=".env",
         env_prefix="OMNIS_",

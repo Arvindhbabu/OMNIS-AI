@@ -6,11 +6,14 @@ readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
     "alembic>=1.18.5",
+    "asyncpg>=0.31.0",
     "fastapi>=0.139.0",
     "httpx>=0.28.1",
+    "psycopg[binary]>=3.3.4",
     "pydantic>=2.13.4",
     "pydantic-settings>=2.14.2",
     "python-dotenv>=1.2.2",
+    "redis>=8.1.0",
     "rich>=15.0.0",
     "sqlalchemy>=2.0.51",
     "structlog>=26.1.0",
@@ -21,13 +24,24 @@ dependencies = [
 line-length = 100
 target-version = "py312"
 
+exclude = [
+    ".venv",
+    "__pycache__",
+    "apps/api/migrations",
+]
+
 [tool.ruff.lint]
 select = [
     "E",
     "F",
     "I",
     "B",
-    "UP"
+    "UP",
+]
+
+ignore = [
+    "B008",   # FastAPI Depends()
+    "UP046",  # Generic[T] is acceptable
 ]
 
 [tool.mypy]
@@ -43,6 +57,9 @@ plugins = ["pydantic.mypy"]
 testpaths = [
     "tests",
     "apps/api/tests",
+]
+pythonpath = [
+    "apps/api/src",
 ]
 
 [tool.coverage.run]

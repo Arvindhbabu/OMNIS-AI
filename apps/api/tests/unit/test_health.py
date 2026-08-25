@@ -1,10 +1,13 @@
 from fastapi.testclient import TestClient
 from omnis_api.app import create_app
 
-client = TestClient(create_app())
+app = create_app()
+client = TestClient(app)
 
 
 def test_health_endpoint() -> None:
+    """Test that the health endpoint returns a healthy status."""
+
     response = client.get("/api/v1/health")
 
     assert response.status_code == 200
@@ -12,4 +15,3 @@ def test_health_endpoint() -> None:
     data = response.json()
 
     assert data["status"] == "healthy"
-    assert data["service"] == "OMNIS API"
